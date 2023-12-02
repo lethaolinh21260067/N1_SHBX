@@ -7,8 +7,10 @@
     <h1>
       Tính liều hiệu dụng sinh học 
     </h1>
-    <subtitle>Dành cho cả tính và không tính đến tái sinh nhanh</subtitle>
-    <style>
+    <h2>
+      <subtitle>Dành cho cả tính và không tính đến tái sinh nhanh</subtitle>
+    </h2>
+      <style>
         body {
             font-family: Times New Roman, sans-serif;
             text-align: center;
@@ -68,9 +70,12 @@
     </div>
     <br>
     <label for="alphaBetaRatio">Tỉ số Alpha và Beta: </label>
-    <input type="text" id="alphaBetaRatio">
+    <input type="number" id="alphaBetaRatio" step="0.1" required>
     <br>
-    <button onclick="calculateBED()"><b>Tính toán BED</b></button>
+    <hr>
+    <div>
+      <button onclick="calculateBED()"><b>Tính toán BED</b></button>
+    </div>
     <br>
     <label for="result">Liều hiệu dụng sinh học (BED): </label>
     <input type="text" id="result" disabled>
