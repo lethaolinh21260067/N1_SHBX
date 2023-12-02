@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BED Calculator with Tumor Proliferation</title>
+    <title>BED Calculator with Time Delay, Alpha/Beta Ratio, and Fast Regeneration Coefficient</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -44,27 +44,11 @@
     <label for="fractions">Number of Fractions: </label>
     <input type="text" id="fractions">
     <br>
-    <div class="row">
-    ::before                                
-    <div class="form-group slider">
-    <div class="col-xs-9">
-    <div class="col-xs-9">
-      
-    <label class="control-label" for="abRange">
-    <b>α/β Ratio</b>
-    </label>
-    </div>
-    <div class="col-xs-3">
-    <input id="abValue" class="form-control input-lg" type="text" placeholder="2">
-    </div>
-    <div class="col-xs-12">
-    <input id="abRange" class="slider" max="16" maxlength="4" min="1" name="ABRatio" size="2" step="0.1" type="range" value="2">
-    <p class="pull-left">0</p>
-    <p class="pull-right">16</p>
-    </div>
-    </div>
-    </div>
-    <hr>
+    <label for="alpha">Alpha (Gy^-1): </label>
+    <input type="text" id="alpha">
+    <br>
+    <label for="beta">Beta (Gy^-2): </label>
+    <input type="text" id="beta">
     <br>
     <label for="proliferationConstant">Proliferation Constant (K): </label>
     <input type="text" id="proliferationConstant">
@@ -74,6 +58,9 @@
     <br>
     <label for="delayTime">Treatment Delay (days): </label>
     <input type="text" id="delayTime">
+    <br>
+    <label for="regenerationCoefficient">Fast Regeneration Coefficient (T_reg): </label>
+    <input type="text" id="regenerationCoefficient">
     <br>
     <button onclick="calculateBED()">Calculate BED</button>
     <br>
@@ -85,23 +72,24 @@
     function calculateBED() {
         const totalDose = parseFloat(document.getElementById('dose').value);
         const fractions = parseInt(document.getElementById('fractions').value);
-        const ab = parseFloat(document.getElementById('ab').value);
-        //const beta = parseFloat(document.getElementById('beta').value);
+        const alpha = parseFloat(document.getElementById('alpha').value);
+        const beta = parseFloat(document.getElementById('beta').value);
         const K = parseFloat(document.getElementById('proliferationConstant').value);
         const T = parseFloat(document.getElementById('treatmentTime').value);
         const T_delay = parseFloat(document.getElementById('delayTime').value);
+        const T_reg = parseFloat(document.getElementById('regenerationCoefficient').value);
 
-        if (isNaN(totalDose) || isNaN(fractions) || isNaN(alpha) || isNaN(beta) || isNaN(K) || isNaN(T) || isNaN(T_delay)) {
+        if (isNaN(totalDose) || isNaN(fractions) || isNaN(alpha) || isNaN(beta) || isNaN(K) || isNaN(T) || isNaN(T_delay) || isNaN(T_reg)) {
             alert('Please enter valid numeric values for all parameters.');
             return;
         }
 
         const nd = totalDose / fractions;
-        const BED = nd * (1 + (totalDose / (ab)) * (fractions - 1)) - K * (T - T_delay);
+        const BED = nd * (1 + (totalDose / (alpha/beta)) - K * (T - T_delay);
 
         document.getElementById('result').value = BED.toFixed(2);
     }
 </script>
-  </div>
+
 </body>
 </html>
