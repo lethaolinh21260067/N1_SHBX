@@ -70,25 +70,19 @@
 
 <script>
     function calculateBED() {
-        const totalDose = parseFloat(document.getElementById('dose').value);
-        const fractions = parseInt(document.getElementById('fractions').value);
-        const alpha = parseFloat(document.getElementById('alpha').value);
-        const beta = parseFloat(document.getElementById('beta').value);
-        const K = parseFloat(document.getElementById('proliferationConstant').value);
-        const T = parseFloat(document.getElementById('treatmentTime').value);
-        const T_delay = parseFloat(document.getElementById('delayTime').value);
-        const T_reg = parseFloat(document.getElementById('regenerationCoefficient').value);
+    const radiationDose = parseFloat(document.getElementById('dose').value);
+    const timeDelay = parseFloat(document.getElementById('delay').value);
 
-        if (isNaN(totalDose) || isNaN(fractions) || isNaN(alpha) || isNaN(beta) || isNaN(K) || isNaN(T) || isNaN(T_delay) || isNaN(T_reg)) {
-            alert('Please enter valid numeric values for all parameters.');
-            return;
-        }
-
-        const nd = totalDose / fractions;
-        const BED = nd * (1 + (totalDose / (alpha/beta)) - K * (T - T_delay);
-
-        document.getElementById('result').value = BED.toFixed(2);
+    if (isNaN(radiationDose) || isNaN(timeDelay)) {
+        alert('Please enter valid numbers for Dose and Time Delay.');
+        return;
     }
+
+    const alphaBetaRatio = 3; // You can adjust this value based on your requirements
+    const BED = radiationDose * (1 + timeDelay / alphaBetaRatio);
+
+    document.getElementById('result').innerHTML = Biologically Effective Dose (BED): ${BED.toFixed(2)} Gy;
+}
 </script>
 
 </body>
