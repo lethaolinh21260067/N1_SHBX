@@ -38,26 +38,24 @@
 <body>
 
 <div id="calculator">
-    <label for="dose">Total Dose (Gy): </label>
+    <label for="dose">Tổng liều (Gy): </label>
     <input type="text" id="dose">
     <br>
-    <label for="fractions">Number of Fractions: </label>
+    <label for="fractions">Số phân liều: </label>
     <input type="text" id="fractions">
     <br>
-    <label for="proliferationConstant">Proliferation Constant (K): </label>
+    <label for="proliferationConstant">Hệ số tái sinh nhanh (K): </label>
     <input type="text" id="proliferationConstant">
     <br>
-    <label for="treatmentTime">Overall Treatment Time (days): </label>
+    <label for="treatmentTime">Thời gian xạ trị (days): </label>
     <input type="text" id="treatmentTime">
     <br>
-    <label for="delayTime">Treatment Delay (days): </label>
+    <label for="delayTime">Thời gian bắt đầu xảy ra tái sinh nhanh (days): </label>
     <input type="text" id="delayTime">
     <br>
     <label for="alphaBetaRatio">AlphaBeta Ratio: </label>
-    <if alphaBetaRatio</if>
-    <input type="number" step="1" required>
-    
-  
+    <input type="text" id="alphaBetaRatio">
+    <br>
     <button onclick="calculateBED()">Calculate BED</button>
     <br>
     <label for="result">Biologically Effective Dose (BED): </label>
@@ -71,14 +69,12 @@
         const K = parseFloat(document.getElementById('proliferationConstant').value);
         const T = parseFloat(document.getElementById('treatmentTime').value);
         const T_delay = parseFloat(document.getElementById('delayTime').value);
-
+        const alphaBetaRatio = parseFloat(document.getElementById('alphaBetaRatio').value);
         if (isNaN(totalDose) || isNaN(fractions) || isNaN(K) || isNaN(T) || isNaN(T_delay)) {
             alert('Please enter valid numeric values for all parameters.');
             return;
         }
 
-        // de bo m tu tim cach gan dieu kien
-        const alphaBetaRatio = 10; // dit con me java ngu vcl
         const nd = totalDose * fractions;
         const BED = (nd * (1 + (totalDose / alphaBetaRatio))-K * (T - T_delay));
 
