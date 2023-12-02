@@ -3,66 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BED Calculator</title>
-    <script src="bedCalculator.js" defer></script>
+    <title>BED Calculator with Tumor Proliferation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        #calculator {
+            width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: inline-block;
+            text-align: left;
+            width: 200px;
+        }
+
+        input, button {
+            width: 150px;
+            height: 30px;
+            margin: 5px;
+            font-size: 14px;
+        }
+
+        #result {
+            width: 300px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Biologically Effective Dose (BED) Calculator</h1>
-    <div>
-      <label for="dose">Radiation Dose (Gy):</label>
-      <input type="number" id="dose" step="0.01" required>
-    </div>
+
+<div id="calculator">
+    <label for="dose">Total Dose (Gy): </label>
+    <input type="text" id="dose">
     <br>
-  
-    <div>
-    <label for="delay">Total Dose (Gy):</label>
-    <input type="number" id="delay" step="1" required>  
-    </div>
+    <label for="fractions">Number of Fractions: </label>
+    <input type="text" id="fractions">
     <br>
-    
-    <div>
-      <label for="proliferationConstant">Proliferation Constant (K): </label>
-      <input type="text" id="proliferationConstant">
-    </div>
+    <label for="proliferationConstant">Proliferation Constant (K): </label>
+    <input type="text" id="proliferationConstant">
     <br>
-    
-    <div>
-      <label for="treatmentTime">Overall Treatment Time (days): </label>
-      <input type="text" id="treatmentTime">
-    </div>
+    <label for="treatmentTime">Overall Treatment Time (days): </label>
+    <input type="text" id="treatmentTime">
     <br>
-    
-    <div>
-      <label for="delayTime">Treatment Delay (days): </label>
-      <input type="text" id="delayTime">
-    </div>
+    <label for="delayTime">Treatment Delay (days): </label>
+    <input type="text" id="delayTime">
     <br>
-    <div>
-    <button onclick="calculateBED()">Calculate BED</button>  
-    </div>
+    <button onclick="calculateBED()">Calculate BED</button>
     <br>
-    
     <label for="result">Biologically Effective Dose (BED): </label>
     <input type="text" id="result" disabled>
-  
+</div>
+
 <script>
     function calculateBED() {
-    const radiationDose = parseFloat(document.getElementById('dose').value);
-    const timeDelay = parseFloat(document.getElementById('delayTime').value);
-    const TotalDose = parseFloat(document.getElementById('dose').value);
-    const K = parseFloat(document.getElementById('proliferationConstant').value);
-    const T = parseFloat(document.getElementById('treatmentTime').value);
-      
-    if (isNaN(radiationDose) || isNaN(timeDelay)) {
-        alert('Please enter valid numbers for Dose and Time Delay.');
-        return;
+        const totalDose = parseFloat(document.getElementById('dose').value);
+        const fractions = parseInt(document.getElementById('fractions').value);
+        const K = parseFloat(document.getElementById('proliferationConstant').value);
+        const T = parseFloat(document.getElementById('treatmentTime').value);
+        const T_delay = parseFloat(document.getElementById('delayTime').value);
+
+        if (isNaN(totalDose) || isNaN(fractions) || isNaN(K) || isNaN(T) || isNaN(T_delay)) {
+            alert('Please enter valid numeric values for all parameters.');
+            return;
+        }
+
+        // Assuming a default alpha/beta ratio
+        const alphaBetaRatio = 10; // You may adjust this value based on your requirements
+
+        const nd = totalDose * fractions;
+        const BED = nd * (1 + (totalDose / alphaBetaRatio)) - K * (T - T_delay);
+
+        document.getElementById('result').value = BED.toFixed(2);
     }
-
-    const alphaBetaRatio = 10; // Có thể sửa lại
-    const BED = radiationDose * (1 + Total Dose / alphaBetaRatio) - K * (T - timeDelay);
-
-    document.getElementById('result').value = BED;
-}
 </script>
 
 </body>
