@@ -53,6 +53,11 @@
     <label for="delayTime">Treatment Delay (days): </label>
     <input type="text" id="delayTime">
     <br>
+    <label for="alphaBetaRatio">AlphaBeta Ratio: </label>
+    <if alphaBetaRatio</if>
+    <input type="number" step="1" required>
+    
+  
     <button onclick="calculateBED()">Calculate BED</button>
     <br>
     <label for="result">Biologically Effective Dose (BED): </label>
@@ -72,11 +77,10 @@
             return;
         }
 
-        // Assuming a default alpha/beta ratio
-        const alphaBetaRatio = 10; // You may adjust this value based on your requirements
-
+        // de bo m tu tim cach gan dieu kien
+        const alphaBetaRatio = 10; // dit con me java ngu vcl
         const nd = totalDose * fractions;
-        const BED = nd * (1 + (totalDose / alphaBetaRatio)) - K * (T - T_delay);
+        const BED = (nd * (1 + (totalDose / alphaBetaRatio))-K * (T - T_delay));
 
         document.getElementById('result').value = BED.toFixed(2);
     }
