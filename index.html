@@ -37,24 +37,31 @@
       <input type="text" id="delayTime">
     </div>
     <br>
+    <div>
+    <button onclick="calculateBED()">Calculate BED</button>  
+    </div>
+    <br>
     
-    <button onclick="calculateBED()">Calculate BED</button>
-
-    <p id="result"></p>
+    <label for="result">Biologically Effective Dose (BED): </label>
+    <input type="text" id="result" disabled>
+  
 <script>
     function calculateBED() {
     const radiationDose = parseFloat(document.getElementById('dose').value);
-    const timeDelay = parseFloat(document.getElementById('delay').value);
-
+    const timeDelay = parseFloat(document.getElementById('delayTime').value);
+    const TotalDose = parseFloat(document.getElementById('dose').value);
+    const K = parseFloat(document.getElementById('proliferationConstant').value);
+    const T = parseFloat(document.getElementById('treatmentTime').value);
+      
     if (isNaN(radiationDose) || isNaN(timeDelay)) {
         alert('Please enter valid numbers for Dose and Time Delay.');
         return;
     }
 
     const alphaBetaRatio = 10; // Có thể sửa lại
-    const BED = radiationDose * (1 + Total Dose / alphaBetaRatio);
+    const BED = radiationDose * (1 + Total Dose / alphaBetaRatio) - K * (T - timeDelay);
 
-    document.getElementById('result').innerHTML = Biologically Effective Dose (BED): ${BED.toFixed(2)} Gy;
+    document.getElementById('result').value = BED;
 }
 </script>
 
