@@ -44,14 +44,16 @@
     <label for="fractions">Number of Fractions: </label>
     <input type="text" id="fractions">
     <br>
-    <label for="alpha">Alpha (Gy^-1): </label>
-    <input type="text" id="alpha">
+    
     <br>
-    <label for="beta">Beta (Gy^-2): </label>
-    <input type="text" id="beta">
+    <label for="proliferationConstant">Proliferation Constant (K): </label>
+    <input type="text" id="proliferationConstant">
     <br>
-    <label for="doublingTime">Tumor Doubling Time (days): </label>
-    <input type="text" id="doublingTime">
+    <label for="treatmentTime">Overall Treatment Time (days): </label>
+    <input type="text" id="treatmentTime">
+    <br>
+    <label for="delayTime">Treatment Delay (days): </label>
+    <input type="text" id="delayTime">
     <br>
     <button onclick="calculateBED()">Calculate BED</button>
     <br>
@@ -65,22 +67,21 @@
         const fractions = parseInt(document.getElementById('fractions').value);
         const alpha = parseFloat(document.getElementById('alpha').value);
         const beta = parseFloat(document.getElementById('beta').value);
-        const doublingTime = parseFloat(document.getElementById('doublingTime').value);
+        const K = parseFloat(document.getElementById('proliferationConstant').value);
+        const T = parseFloat(document.getElementById('treatmentTime').value);
+        const T_delay = parseFloat(document.getElementById('delayTime').value);
 
-        if (isNaN(totalDose) || isNaN(fractions) || isNaN(alpha) || isNaN(beta) || isNaN(doublingTime)) {
+        if (isNaN(totalDose) || isNaN(fractions) || isNaN(alpha) || isNaN(beta) || isNaN(K) || isNaN(T) || isNaN(T_delay)) {
             alert('Please enter valid numeric values for all parameters.');
             return;
         }
 
-        const BED = totalDose * (1 + (totalDose / (alpha + beta)) * (fractions - 1));
-        const correctionFactor = Math.pow(2, (doublingTime / (totalDose / fractions)));
+        const nd = totalDose / fractions;
+        const BED = nd * (1 + (totalDose / (alpha + beta)) * (fractions - 1)) - K * (T - T_delay);
 
-        const BEDWithProliferation = BED * correctionFactor;
-
-        document.getElementById('result').value = BEDWithProliferation.toFixed(2);
+        document.getElementById('result').value = BED.toFixed(2);
     }
 </script>
 
 </body>
 </html>
-
