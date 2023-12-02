@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Equation Solver</title>
+</head>
+<body>
+  <h1>Equation Solver</h1>
+  
+  <form>
+    <label for="n1">n1:</label>
+    <input type="number" id="n1" name="n1"><br><br>
+
+    <label for="d2">d2:</label>
+    <input type="number" id="d2" name="d2"><br><br>
+
+    <label for="n2">n2:</label>
+    <input type="number" id="n2" name="n2"><br><br>
+
+    <label for="d1">d1:</label>
+    <input type="number" id="d1" name="d1"><br><br>
+
+    <label for="alpha_beta">alpha_beta:</label>
+    <input type="number" id="alpha_beta" name="alpha_beta"><br><br>
+
+    <button type="button" onclick="solveEquation()">Solve</button>
+  </form>
+
+  <p id="result"></p>
+
+  <script>
+    function solveEquation() {
+      var n1 = document.getElementById("n1").value;
+      var d2 = document.getElementById("d2").value;
+      var n2 = document.getElementById("n2").value;
+      var d1 = document.getElementById("d1").value;
+      var t = document.getElementById("alpha_beta").value;
+
+      if (n1 === "") {
+        // Calculate n1
+        n1 = (n2 * d2 * (1 + d2 / t)) / (1 + d1 / t);
+        document.getElementById("result").innerHTML = "n1 = " + n1.toFixed(2);
+      } else if (n2 === "") {
+        // Calculate n2
+        n2 = (n1 * d1 * (1 + d1 / t)) / (1 + d2 / t);
+        document.getElementById("result").innerHTML = "n2 = " + n2.toFixed(2);
+      } else if (d1 === "") {
+        // Calculate d1
+        d1 = (n2 * d2 * (1 + d2 / t)) / (n1 * (1 + d1 / t));
+        document.getElementById("result").innerHTML = "d1 = " + d1.toFixed(2);
+      } else if (d2 === ""){
+        // Calculate d2
+        d2 = (n1 * (1 + d1 / t)) / (n2 / (1 + d2 / t));
+        document.getElementById("result").innerHTML = "d2 = " + d2.toFixed(2);
+      } 
+      else {
+        document.getElementById("result").innerHTML = "Tinh 1 tham so duoc thui, nhap lai";
+      }
+    }
+  </script>
+</body>
+</html>
