@@ -6,9 +6,9 @@
     <title>BED Calculator with Tumor Proliferation</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Times New Roman, sans-serif;
             text-align: center;
-            margin: 50px;
+            margin: 60px;
         }
 
         #calculator {
@@ -38,27 +38,37 @@
 <body>
 
 <div id="calculator">
-    <label for="dose">Tổng liều (Gy): </label>
-    <input type="text" id="dose">
+    <div>
+      <label for="dose">Tổng liều (Gy): </label>
+      <input type="text" id="dose">
+    </div>
     <br>
-    <label for="fractions">Số phân liều: </label>
-    <input type="text" id="fractions">
+    <div>
+      <label for="fractions">Số phân liều: </label>
+      <input type="text" id="fractions">
+    </div>
     <br>
-    <label for="proliferationConstant">Hệ số tái sinh nhanh (K): </label>
-    <input type="text" id="proliferationConstant">
+    <div>
+      <label for="proliferationConstant">Hệ số tái sinh nhanh (K): </label>
+      <input type="text" id="proliferationConstant">
+    </div>
     <br>
-    <label for="treatmentTime">Thời gian xạ trị (days): </label>
-    <input type="text" id="treatmentTime">
+    <div>
+      <label for="treatmentTime">Thời gian xạ trị (days): </label>
+      <input type="text" id="treatmentTime">
+    </div>
     <br>
-    <label for="delayTime">Thời gian bắt đầu xảy ra tái sinh nhanh (days): </label>
-    <input type="text" id="delayTime">
+    <div>
+      <label for="delayTime">Thời gian bắt đầu xảy ra tái sinh nhanh tính từ lúc xạ (days): </label>
+      <input type="text" id="delayTime">
+    </div>
     <br>
-    <label for="alphaBetaRatio">AlphaBeta Ratio: </label>
+    <label for="alphaBetaRatio">Tỉ số Alpha và Beta: </label>
     <input type="text" id="alphaBetaRatio">
     <br>
-    <button onclick="calculateBED()">Calculate BED</button>
+    <button onclick="calculateBED()"><b>Tính toán BED</b></button>
     <br>
-    <label for="result">Biologically Effective Dose (BED): </label>
+    <label for="result">Liều hiêuj dụng sinh học (BED): </label>
     <input type="text" id="result" disabled>
 </div>
 
@@ -71,7 +81,7 @@
         const T_delay = parseFloat(document.getElementById('delayTime').value);
         const alphaBetaRatio = parseFloat(document.getElementById('alphaBetaRatio').value);
         if (isNaN(totalDose) || isNaN(fractions) || isNaN(K) || isNaN(T) || isNaN(T_delay)) {
-            alert('Please enter valid numeric values for all parameters.');
+            alert('Xin hãy nhập lại các giá trị');
             return;
         }
 
