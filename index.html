@@ -61,8 +61,8 @@
     <p class="pull-right">16</p>
     </div>
     </div>
-                                </div>
-                                <hr>
+    </div>
+    <hr>
     <br>
     <label for="proliferationConstant">Proliferation Constant (K): </label>
     <input type="text" id="proliferationConstant">
@@ -95,7 +95,7 @@
         }
 
         const nd = totalDose / fractions;
-        const BED = nd * (1 + (totalDose / (alpha + beta)) * (fractions - 1)) - K * (T - T_delay);
+        const BED = nd * (1 + (totalDose / (a/b)) * (fractions - 1)) - K * (T - T_delay);
 
         document.getElementById('result').value = BED.toFixed(2);
     }
