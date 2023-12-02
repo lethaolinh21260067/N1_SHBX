@@ -3,71 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BED Calculator with Time Delay, Alpha/Beta Ratio, and Fast Regeneration Coefficient</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-
-        #calculator {
-            width: 400px;
-            margin: 0 auto;
-        }
-
-        label {
-            display: inline-block;
-            text-align: left;
-            width: 200px;
-        }
-
-        input, button {
-            width: 150px;
-            height: 30px;
-            margin: 5px;
-            font-size: 14px;
-        }
-
-        #result {
-            width: 300px;
-            margin-top: 10px;
-        }
-    </style>
+    <title>BED Calculator</title>
+    <script src="bedCalculator.js" defer></script>
 </head>
 <body>
-
-<div id="calculator">
-    <label for="dose">Total Dose (Gy): </label>
-    <input type="text" id="dose">
+    <h1>Biologically Effective Dose (BED) Calculator</h1>
+    <div>
+      <label for="dose">Radiation Dose (Gy):</label>
+      <input type="number" id="dose" step="0.01" required>
+    </div>
     <br>
-    <label for="fractions">Number of Fractions: </label>
-    <input type="text" id="fractions">
+  
+    <div>
+    <label for="delay">Total Dose (Gy):</label>
+    <input type="number" id="delay" step="1" required>  
+    </div>
     <br>
-    <label for="alpha">Alpha (Gy^-1): </label>
-    <input type="text" id="alpha">
+    
+    <div>
+      <label for="proliferationConstant">Proliferation Constant (K): </label>
+      <input type="text" id="proliferationConstant">
+    </div>
     <br>
-    <label for="beta">Beta (Gy^-2): </label>
-    <input type="text" id="beta">
+    
+    <div>
+      <label for="treatmentTime">Overall Treatment Time (days): </label>
+      <input type="text" id="treatmentTime">
+    </div>
     <br>
-    <label for="proliferationConstant">Proliferation Constant (K): </label>
-    <input type="text" id="proliferationConstant">
+    
+    <div>
+      <label for="delayTime">Treatment Delay (days): </label>
+      <input type="text" id="delayTime">
+    </div>
     <br>
-    <label for="treatmentTime">Overall Treatment Time (days): </label>
-    <input type="text" id="treatmentTime">
-    <br>
-    <label for="delayTime">Treatment Delay (days): </label>
-    <input type="text" id="delayTime">
-    <br>
-    <label for="regenerationCoefficient">Fast Regeneration Coefficient (T_reg): </label>
-    <input type="text" id="regenerationCoefficient">
-    <br>
+    
     <button onclick="calculateBED()">Calculate BED</button>
-    <br>
-    <label for="result">Biologically Effective Dose (BED): </label>
-    <input type="text" id="result" disabled>
-</div>
 
+    <p id="result"></p>
 <script>
     function calculateBED() {
     const radiationDose = parseFloat(document.getElementById('dose').value);
@@ -78,8 +51,8 @@
         return;
     }
 
-    const alphaBetaRatio = 3; // You can adjust this value based on your requirements
-    const BED = radiationDose * (1 + timeDelay / alphaBetaRatio);
+    const alphaBetaRatio = 10; // Có thể sửa lại
+    const BED = radiationDose * (1 + Total Dose / alphaBetaRatio);
 
     document.getElementById('result').innerHTML = Biologically Effective Dose (BED): ${BED.toFixed(2)} Gy;
 }
