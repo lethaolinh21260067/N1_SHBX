@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BED Calculator</title>
+    <title>BED Calculator with Tumor Proliferation</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,30 +12,37 @@
         }
 
         #calculator {
-            width: 100px;
+            width: 400px;
             margin: 0 auto;
         }
 
+        label {
+            display: inline-block;
+            text-align: left;
+            width: 200px;
+        }
+
         input, button {
-            width: 45px;
-            height: 40px;
+            width: 150px;
+            height: 30px;
             margin: 5px;
-            font-size: 9px;
+            font-size: 14px;
+        }
+
+        #result {
+            width: 300px;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
 <div id="calculator">
-    <p>
     <label for="dose">Total Dose (Gy): </label>
-    <input type="text" id="dose"></p>
+    <input type="text" id="dose">
     <br>
-  
-    <p>
-      <label for="fractions">Number of Fractions: </label>
-      <input type="text" id="fractions">
-    </p>
+    <label for="fractions">Number of Fractions: </label>
+    <input type="text" id="fractions">
     <br>
     <label for="alpha">Alpha (Gy^-1): </label>
     <input type="text" id="alpha">
@@ -43,10 +50,10 @@
     <label for="beta">Beta (Gy^-2): </label>
     <input type="text" id="beta">
     <br>
-    <p>
-    <button onclick="calculateBED()">Calculate BED</button>  
-    </p>
-    
+    <label for="doublingTime">Tumor Doubling Time (days): </label>
+    <input type="text" id="doublingTime">
+    <br>
+    <button onclick="calculateBED()">Calculate BED</button>
     <br>
     <label for="result">Biologically Effective Dose (BED): </label>
     <input type="text" id="result" disabled>
@@ -58,17 +65,22 @@
         const fractions = parseInt(document.getElementById('fractions').value);
         const alpha = parseFloat(document.getElementById('alpha').value);
         const beta = parseFloat(document.getElementById('beta').value);
+        const doublingTime = parseFloat(document.getElementById('doublingTime').value);
 
-        if (isNaN(totalDose) || isNaN(fractions) || isNaN(alpha) || isNaN(beta)) {
+        if (isNaN(totalDose) || isNaN(fractions) || isNaN(alpha) || isNaN(beta) || isNaN(doublingTime)) {
             alert('Please enter valid numeric values for all parameters.');
             return;
         }
 
         const BED = totalDose * (1 + (totalDose / (alpha + beta)) * (fractions - 1));
-        
-        document.getElementById('result').value = BED.toFixed(2);
+        const correctionFactor = Math.pow(2, (doublingTime / (totalDose / fractions)));
+
+        const BEDWithProliferation = BED * correctionFactor;
+
+        document.getElementById('result').value = BEDWithProliferation.toFixed(2);
     }
 </script>
 
 </body>
 </html>
+
