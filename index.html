@@ -42,38 +42,44 @@
     </style>
 </head>
 <body>
-<div>
-  <form id="bedForm">
+
+<div id="calculator">
     <div>
-      <label for="n">Fractionation (n):</label>
-      <input type="number" id="n" required>
+      <label for="dose">Tổng liều (Gy): </label>
+      <input type="text" id="dose">
     </div>
     <br>
-
     <div>
-      <label for="d">Dose per fraction (d):</label>
-      <input type="number" id="d" required>
+      <label for="fractions">Số phân liều: </label>
+      <input type="text" id="fractions">
     </div>
     <br>
-
-    <label for="alphabetaRatio">Alpha/Beta Ratio (α/β):</label>
-    <input type="number" id="alphabetaRatio" min="1" max="10" step="0.1" required>
-
-    <label for="proliferationConstant">Hệ số tái sinh nhanh (K): </label>
-    <input type="text" id="proliferationConstant"> 
-    
-    <label for="T">Total dose (T):</label>
-    <input type="number" id="T" required>
-
-    <label for="Tdelay">Delay time (Tdelay):</label>
-    <input type="number" id="Tdelay" required>
-
-    <button type="button" onclick="calculateBED()">Calculate BED</button>
-</form>
-  </div>
-
-
-<p id="result"></p>
+    <div>
+      <label for="proliferationConstant">Hệ số tái sinh nhanh (K): </label>
+      <input type="text" id="proliferationConstant">
+    </div>
+    <br>
+    <div>
+      <label for="treatmentTime">Thời gian xạ trị (days): </label>
+      <input type="text" id="treatmentTime">
+    </div>
+    <br>
+    <div>
+      <label for="delayTime">Thời gian bắt đầu xảy ra tái sinh nhanh tính từ lúc xạ (days): </label>
+      <input type="text" id="delayTime">
+    </div>
+    <br>
+    <label for="alphaBetaRatio">Tỉ số Alpha và Beta: </label>
+    <input type="number" id="alphaBetaRatio" step="0.1" required>
+    <br>
+    <hr>
+    <div>
+      <button onclick="calculateBED()"><b>Tính toán BED</b></button>
+    </div>
+    <br>
+    <label for="result">Liều hiệu dụng sinh học (BED): </label>
+    <input type="text" id="result" disabled>
+</div>
 
 <script>
     function calculateBED() {
