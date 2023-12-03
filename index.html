@@ -57,14 +57,17 @@
     <br>
 
     <div>
-      <label for="alphabetaRatio">Tỉ số Alpha/Beta (α/β):</label>
-      <input type="number" id="alphabetaRatio" min="1" max="16" step="0.1" required>
+        <label for="alphabetaRatio">Tỉ số Alpha/Beta (α/β):</label>
+         <div class="input-group">
+            <input type="range" id="alphabetaRatio" min="1" max="16" step="0.1" value="1" oninput="updateSliderValue()">
+            <input type="text" class="form-control input-lg" id="alphabetaValue" oninput="updateSliderFromInput()">
+        </div>
     </div>
     <br>
 
     <div>
       <label for="proliferationConstant">Hệ số tái sinh nhanh (K): </label>
-      <input type="number" id="proliferationConstant"> 
+      <input type="text" id="proliferationConstant"> 
     </div>
     <br>
     
@@ -87,6 +90,22 @@
 <p id="result"></p>
 
 <script>
+    function updateSliderValue() {
+        var slider = document.getElementById('alphabetaRatio');
+        var valueDisplay = document.getElementById('alphabetaValue');
+        valueDisplay.value = slider.value;
+    }
+
+    function updateSliderFromInput() {
+        var slider = document.getElementById('alphabetaRatio');
+        var valueDisplay = document.getElementById('alphabetaValue');
+
+        if (parseFloat(valueDisplay.value) >= 1 && parseFloat(valueDisplay.value) <= 16) {
+            slider.value = valueDisplay.value;
+        } else {
+            alert('Tỉ số Alpha/Beta phải nằm trong khoảng 1 tới 16.');
+        }
+    }
     function calculateBED() {
         const n = parseFloat(document.getElementById('n').value);
         const d = parseFloat(document.getElementById('d').value);
@@ -94,10 +113,10 @@
         const T = parseFloat(document.getElementById('T').value);
         const Tdelay = parseFloat(document.getElementById('Tdelay').value);
         const K = parseFloat(document.getElementById('proliferationConstant').value);
-
-        if (alphabetaRatio < 0.9 || alphabetaRatio > 16.1) {
-            alert('Giá trị của alpha/beta phải nằm trong khoảng 1 đến 16.');
-            return; 
+        
+        if (alphabetaRatio < 1 || alphabetaRatio > 16) {
+            alert('Giá trị của alpha/beta phải nằm trong khoảng 0 đến 16.');
+            return;
         }
 
         const BED = n * d * (1 + d / alphabetaRatio) - K * (T - Tdelay);
