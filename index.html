@@ -58,13 +58,13 @@
 
     <div>
       <label for="alphabetaRatio">Tỉ số Alpha/Beta (α/β):</label>
-      <input type="number" id="alphabetaRatio" min="0" max="20" step="0.1" required>
+      <input type="number" id="alphabetaRatio" min="1" max="16" step="0.1" required>
     </div>
     <br>
 
     <div>
       <label for="proliferationConstant">Hệ số tái sinh nhanh (K): </label>
-      <input type="text" id="proliferationConstant"> 
+      <input type="number" id="proliferationConstant"> 
     </div>
     <br>
     
@@ -94,10 +94,10 @@
         const T = parseFloat(document.getElementById('T').value);
         const Tdelay = parseFloat(document.getElementById('Tdelay').value);
         const K = parseFloat(document.getElementById('proliferationConstant').value);
-        // Xác nhận tỉ số alpha/beta
-        if (alphabetaRatio < 1 || alphabetaRatio > 10) {
-            alert('Giá trị của alpha/beta phải nằm trong khoảng 0 đến 20.');
-            return; // Dừng phép tính
+
+        if (alphabetaRatio < 0.9 || alphabetaRatio > 16.1) {
+            alert('Giá trị của alpha/beta phải nằm trong khoảng 1 đến 16.');
+            return; 
         }
 
         const BED = n * d * (1 + d / alphabetaRatio) - K * (T - Tdelay);
