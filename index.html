@@ -42,62 +42,67 @@
     </style>
 </head>
 <body>
+<div>
+  <form id="bedForm">
+    <div>
+      <label for="n">Số phân liều (lần):</label>
+      <input type="number" id="n" required>
+    </div>
+    <br>
 
-<div id="calculator">
     <div>
-      <label for="dose">Tổng liều (Gy): </label>
-      <input type="text" id="dose">
+      <label for="d">Liều (Gy):</label>
+      <input type="number" id="d" required>
     </div>
     <br>
+
     <div>
-      <label for="fractions">Số phân liều: </label>
-      <input type="text" id="fractions">
+      <label for="alphabetaRatio">Tỉ số Alpha/Beta (α/β):</label>
+      <input type="number" id="alphabetaRatio" min="0" max="20" step="0.1" required>
     </div>
     <br>
+
     <div>
       <label for="proliferationConstant">Hệ số tái sinh nhanh (K): </label>
-      <input type="text" id="proliferationConstant">
+      <input type="text" id="proliferationConstant"> 
     </div>
     <br>
+    
     <div>
-      <label for="treatmentTime">Thời gian xạ trị (days): </label>
-      <input type="text" id="treatmentTime">
+      <label for="T">Thời gian xạ trị (ngày) (T):</label>
+      <input type="number" id="T" required>
     </div>
     <br>
+
     <div>
-      <label for="delayTime">Thời gian bắt đầu xảy ra tái sinh nhanh tính từ lúc xạ (days): </label>
-      <input type="text" id="delayTime">
+      <label for="Tdelay">Thời gian bắt đầu tái sinh nhanh tính từ lúc xạ (ngày):</label>
+      <input type="number" id="Tdelay" required>
     </div>
     <br>
-    <label for="alphaBetaRatio">Tỉ số Alpha và Beta: </label>
-    <input type="number" id="alphaBetaRatio" step="0.1" required>
-    <br>
-    <hr>
-    <div>
-      <button onclick="calculateBED()"><b>Tính toán BED</b></button>
-    </div>
-    <br>
-    <label for="result">Liều hiệu dụng sinh học (BED): </label>
-    <input type="text" id="result" disabled>
-</div>
+
+    <button type="button" onclick="calculateBED()">Calculate BED</button>
+  </form></div>
+
+
+<p id="result"></p>
 
 <script>
     function calculateBED() {
-        const totalDose = parseFloat(document.getElementById('dose').value);
-        const fractions = parseInt(document.getElementById('fractions').value);
+        const n = parseFloat(document.getElementById('n').value);
+        const d = parseFloat(document.getElementById('d').value);
+        const alphabetaRatio = parseFloat(document.getElementById('alphabetaRatio').value);
+        const T = parseFloat(document.getElementById('T').value);
+        const Tdelay = parseFloat(document.getElementById('Tdelay').value);
         const K = parseFloat(document.getElementById('proliferationConstant').value);
-        const T = parseFloat(document.getElementById('treatmentTime').value);
-        const T_delay = parseFloat(document.getElementById('delayTime').value);
-        const alphaBetaRatio = parseFloat(document.getElementById('alphaBetaRatio').value);
-        if (isNaN(totalDose) || isNaN(fractions) || isNaN(K) || isNaN(T) || isNaN(T_delay)) {
-            alert('Xin hãy nhập lại các giá trị');
-            return;
+        // Xác nhận tỉ số alpha/beta
+        if (alphabetaRatio < 1 || alphabetaRatio > 10) {
+            alert('Giá trị của alpha/beta phải nằm trong khoảng 0 đến 20.');
+            return; // Dừng phép tính
         }
 
-        const nd = totalDose * fractions;
-        const BED = (nd * (1 + (totalDose / alphaBetaRatio))-K * (T - T_delay));
+        const BED = n * d * (1 + d / alphabetaRatio) - K * (T - Tdelay);
 
-        document.getElementById('result').value = BED.toFixed(2);
+        document.getElementById('result').innerHTML = 'Biologically Effective Dose (BED): ' + BED.toFixed(2);
     }
 </script>
 
