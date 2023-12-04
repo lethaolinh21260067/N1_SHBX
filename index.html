@@ -16,19 +16,19 @@
 <div class="wrapper">
   <form id="bedForm">
     <div>
-      <label for="n">Số phân liều (lần):</label>
+      <label for="n">Number of treament fractions (n):</label>
       <input type="number" id="n" required>
     </div>
     <br>
 
     <div>
-      <label for="d">Liều (Gy):</label>
+      <label for="d">Dose per Fraction in Gy (d):</label>
       <input type="number" id="d" required>
     </div>
     <br>
 
     <div>
-        <label for="alphabetaRatio">Tỉ số Alpha/Beta (α/β):</label>
+        <label for="alphabetaRatio"> Alpha/Beta Ratio (α/β):</label>
          <div class="input-group">
             <input type="range" id="alphabetaRatio" min="1" max="16" step="0.1" value="1" oninput="updateSliderValue1()">
             <input type="text" class="form-control input-lg" id="alphabetaValue" oninput="updateSliderFromInput1()">
@@ -37,7 +37,7 @@
     <br>
 
     <div>
-      <label for="proliferationConstant">Hệ số tái sinh nhanh (K):</label>
+      <label for="proliferationConstant">The number of proliferation (K)</label>
          <div class="input-group">
             <input type="range" id="proliferationConstant" min="0" max="1" step="0.1" value="2" oninput="updateSliderValue()">
             <input type="text" class="form-control input-lg" id="proliferationValue" oninput="updateSliderFromInput()">
@@ -46,13 +46,13 @@
     <br>
     
     <div>
-      <label for="T">Thời gian xạ trị (ngày) (T):</label>
+      <label for="T">The treament time (T) (days)::</label>
       <input type="number" id="T" required>
     </div>
     <br>
 
     <div>
-      <label for="Tdelay">Thời gian bắt đầu tái sinh nhanh tính từ lúc xạ (ngày):</label>
+      <label for="Tdelay">The delay time (T_delay) (days):</label>
       <input type="number" id="Tdelay" required>
     </div>
     <br>
@@ -77,7 +77,7 @@
         if (parseFloat(valueDisplay.value) >= 1 && parseFloat(valueDisplay1.value) <= 16) {
             slider1.value = valueDisplay1.value;
         } else {
-            alert('Tỉ số Alpha/Beta phải nằm trong khoảng 1 tới 16.');
+            alert('The Alpha/Beta Ratio is less than 16.');
         }
     }
     function updateSliderValue() {
@@ -93,7 +93,7 @@
         if (parseFloat(valueDisplay.value) >= 0 && parseFloat(valueDisplay.value) <= 1) {
             slider.value = valueDisplay.value;
         } else {
-            alert('Hệ số tái sinh nhanh phải nằm trong khoảng 0 tới 1.');
+            alert('The number of proliferation is not over 1.');
         }
     }
     function calculateBED() {
@@ -105,7 +105,7 @@
         const K = parseFloat(document.getElementById('proliferationConstant').value);
         
         if (alphabetaRatio < 1 || alphabetaRatio > 16) {
-            alert('Giá trị của alpha/beta phải nằm trong khoảng 0 đến 16.');
+            alert('The Alpha/Beta Ratio is less than 16.');
             return;
         }
 
