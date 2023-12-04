@@ -59,15 +59,18 @@
     <div>
         <label for="alphabetaRatio">Tỉ số Alpha/Beta (α/β):</label>
          <div class="input-group">
-            <input type="range" id="alphabetaRatio" min="1" max="16" step="0.1" value="1" oninput="updateSliderValue()">
-            <input type="text" class="form-control input-lg" id="alphabetaValue" oninput="updateSliderFromInput()">
+            <input type="range" id="alphabetaRatio" min="1" max="16" step="0.1" value="1" oninput="updateSliderValue1()">
+            <input type="text" class="form-control input-lg" id="alphabetaValue" oninput="updateSliderFromInput1()">
         </div>
     </div>
     <br>
 
     <div>
-      <label for="proliferationConstant">Hệ số tái sinh nhanh (K): </label>
-      <input type="text" id="proliferationConstant"> 
+      <label for="proliferationConstant">Hệ số tái sinh nhanh (K):</label>
+         <div class="input-group">
+            <input type="range" id="proliferationConstant" min="0" max="1" step="0.1" value="2" oninput="updateSliderValue()">
+            <input type="text" class="form-control input-lg" id="proliferationValue" oninput="updateSliderFromInput()">
+        </div>
     </div>
     <br>
     
@@ -90,20 +93,36 @@
 <p id="result"></p>
 
 <script>
+    function updateSliderValue1() {
+        var slider1 = document.getElementById('alphabetaRatio');
+        var valueDisplay1 = document.getElementById('alphabetaValue');
+        valueDisplay1.value = slider1.value;
+    }
+
+    function updateSliderFromInput1() {
+        var slider1 = document.getElementById('alphabetaRatio');
+        var valueDisplay1 = document.getElementById('alphabetaValue');
+
+        if (parseFloat(valueDisplay.value) >= 1 && parseFloat(valueDisplay1.value) <= 16) {
+            slider1.value = valueDisplay1.value;
+        } else {
+            alert('Tỉ số Alpha/Beta phải nằm trong khoảng 1 tới 16.');
+        }
+    }
     function updateSliderValue() {
-        const slider = document.getElementById('alphabetaRatio');
-        const valueDisplay = document.getElementById('alphabetaValue');
+        var slider = document.getElementById('proliferationConstant');
+        var valueDisplay = document.getElementById('proliferationValue');
         valueDisplay.value = slider.value;
     }
 
     function updateSliderFromInput() {
-        const slider = document.getElementById('alphabetaRatio');
-        const valueDisplay = document.getElementById('alphabetaValue');
+        var slider = document.getElementById('proliferationConstant');
+        var valueDisplay = document.getElementById('proliferationValue');
 
-        if (parseFloat(valueDisplay.value) >= 1 && parseFloat(valueDisplay.value) <= 16) {
+        if (parseFloat(valueDisplay.value) >= 0 && parseFloat(valueDisplay.value) <= 1) {
             slider.value = valueDisplay.value;
-        } else {         //.
-            alert('Tỉ số Alpha/Beta phải nằm trong khoảng 1 tới 16.');
+        } else {
+            alert('Hệ số tái sinh nhanh phải nằm trong khoảng 0 tới 1.');
         }
     }
     function calculateBED() {
